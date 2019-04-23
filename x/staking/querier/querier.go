@@ -354,3 +354,14 @@ func queryParameters(ctx sdk.Context, cdc *codec.Codec, k keep.Keeper) (res []by
 	}
 	return res, nil
 }
+
+// QueryValidatorsParams defines the params for the following queries:
+// - 'custom/staking/validators'
+type QueryValidatorsParams struct {
+	Page, Limit int
+	Status      string
+}
+
+func NewQueryValidatorsParams(page, limit int, status string) QueryValidatorsParams {
+	return QueryValidatorsParams{page, limit, status}
+}
