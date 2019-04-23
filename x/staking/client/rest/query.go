@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -244,7 +245,9 @@ func delegatorValidatorHandlerFn(cliCtx context.CLIContext, cdc *codec.Codec) ht
 // HTTP request handler to query list of validators
 func validatorsHandlerFn(cliCtx context.CLIContext, cdc *codec.Codec) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		res, err := cliCtx.QueryWithData("custom/staking/validators", nil)
+
+		route := fmt.Sprintf("custom/%s/%s", staking.QuerierRoute, staking.QueryValidators)
+		res, err := cliCtx.QueryWithData(route, nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusInternalServerError, err.Error())
 			return
